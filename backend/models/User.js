@@ -30,7 +30,6 @@ const userSchema = new Schema(
     role: { type: String, enum: ["admin", "user"], default: "user" },
     accountEmail: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    accountEmailVerified: { type: Boolean, default: false },
     accountVerified: { type: Boolean, default: false },
     publicEmail: { type: String, required: true },
     birthdate: { type: Date, required: true },
