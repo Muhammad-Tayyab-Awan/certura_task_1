@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 
 import connectDB from "./utils/connectDB.js";
+import registerRoute from "./routes/auth/register.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -27,6 +28,8 @@ app.get("/", (req, res) => {
     });
   }
 });
+
+app.use("/api/v1/auth/register", registerRoute);
 
 app.all(/.*/, (req, res) => {
   try {
