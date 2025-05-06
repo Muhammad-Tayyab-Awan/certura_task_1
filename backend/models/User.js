@@ -19,11 +19,7 @@ const addressSchema = new Schema({
   city: {
     type: String,
     required: true,
-  },
-  contactNumber: {
-    type: String,
-    required: true,
-  },
+  }
 });
 
 const userSchema = new Schema(
