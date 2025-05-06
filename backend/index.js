@@ -14,6 +14,32 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser());
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => {
+  try {
+    res
+      .status(200)
+      .json({ resStatus: true, message: "Welcome to BlogPress API" });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: "Error Occurred on Server Side",
+      message: error.message,
+    });
+  }
+});
+
+app.all(/.*/, (req, res) => {
+  try {
+    res.status(404).json({ resStatus: false, error: "Route not found" });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: "Error Occurred on Server Side",
+      message: error.message,
+    });
+  }
+});
+
 app.listen(port, async () => {
   console.clear();
   await connectDB();
