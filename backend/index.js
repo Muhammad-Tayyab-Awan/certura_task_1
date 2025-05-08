@@ -8,6 +8,7 @@ import cors from "cors";
 import verifyLogin from "./middlewares/verifyLogin.js";
 import connectDB from "./utils/connectDB.js";
 import registerRoute from "./routes/auth/register.js";
+import verifyRoute from "./routes/auth/verify.js";
 import uploadRoute from "./routes/upload.js";
 
 const app = express();
@@ -33,6 +34,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/auth/register", registerRoute);
+app.use("/api/v1/auth/verify", verifyRoute);
 app.use("/api/v1/upload/", uploadRoute);
 
 app.all(/.*/, (req, res) => {
