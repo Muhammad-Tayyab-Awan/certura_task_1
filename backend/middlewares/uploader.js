@@ -11,12 +11,8 @@ const uploader = multer({
       path.extname(file.originalname).toLowerCase(),
     );
     const mimeType = fileTypes.test(file.mimetype);
-    file.size;
     if (extName && mimeType) {
-      if (file.size <= 1024) {
-        return cb(null, true);
-      }
-      return cb(new Error("Please upload image of max 1 MB size or less"));
+      return cb(null, true);
     } else {
       cb(new Error("Only image with jpeg, jpg and png mimetype are allowed"));
     }
