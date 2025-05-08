@@ -28,6 +28,7 @@ export default async function verifyLogin(req, res, next) {
       req.userStatus.loggedIn = true;
       req.userStatus.userId = userId;
       req.userStatus.username = userExist.username;
+      req.userStatus.role = userExist.role;
       next();
     });
   } catch (error) {
