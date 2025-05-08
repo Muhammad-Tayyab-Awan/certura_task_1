@@ -4,6 +4,7 @@ import { Router } from "express";
 import uploader from "../middlewares/uploader.js";
 import cloudinary from "../utils/cloudinaryConfig.js";
 import User from "../models/User.js";
+import path from "path";
 
 const router = Router();
 const prfPicDir = process.env.CLOUDINARY_PRF_PIC_DIR;
@@ -26,6 +27,18 @@ router.post(
           resStatus: false,
           error: "Invalid request",
           message: "Please upload image file",
+        });
+      }
+      const fileTypes = /jpeg|jpg|png/;
+      const extName = fileTypes.test(
+        path.extname(req.file.originalname).toLowerCase(),
+      );
+      const mimeType = fileTypes.test(req.file.mimetype);
+      if (!(extName && mimeType)) {
+        return res.status(400).json({
+          resStatus: false,
+          error: "Invalid request",
+          message: "Only image with jpeg, jpg and png mimetype are allowed",
         });
       }
       if (req.file.size > 1048576) {
