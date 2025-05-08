@@ -19,7 +19,7 @@ const addressSchema = new Schema({
   city: {
     type: String,
     required: true,
-  }
+  },
 });
 
 const userSchema = new Schema(
@@ -37,7 +37,7 @@ const userSchema = new Schema(
     address: addressSchema,
     profilePhoto: {
       type: String,
-      default: "",
+      default: "https://cdn-icons-png.flaticon.com/512/9187/9187604.png",
     },
   },
   { timestamps: true },
