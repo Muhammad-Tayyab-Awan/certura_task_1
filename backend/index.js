@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import cors from "cors";
 
+import verifyLogin from "./middlewares/verifyLogin.js";
 import connectDB from "./utils/connectDB.js";
 import registerRoute from "./routes/auth/register.js";
 import uploadRoute from "./routes/upload.js";
@@ -15,6 +16,7 @@ const port = process.env.PORT || 3000;
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(verifyLogin);
 
 app.get("/", (req, res) => {
   try {
