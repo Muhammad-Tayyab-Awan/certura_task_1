@@ -10,6 +10,7 @@ import connectDB from "./utils/connectDB.js";
 import registerRoute from "./routes/auth/register.js";
 import verifyRoute from "./routes/auth/verify.js";
 import uploadRoute from "./routes/upload.js";
+import loginRoute from "./routes/auth/login.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -34,6 +35,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/auth/register", registerRoute);
+app.use("/api/v1/auth/login", loginRoute);
 app.use("/api/v1/auth/verify", verifyRoute);
 app.use("/api/v1/upload/", uploadRoute);
 
