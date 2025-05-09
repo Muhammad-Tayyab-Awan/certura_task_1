@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import { Router } from "express";
 import { param, validationResult } from "express-validator";
+import validator from "validator";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
@@ -11,9 +12,9 @@ const router = Router();
 const jwtSecret = process.env.JWT_SECRET;
 
 router.get(
-  "/account-verification-otp/:email/:otpCode",
+  "/account-verification-otp/:username/:otpCode",
   [
-    param("email").isEmail(),
+    param("username").notEmpty(),
     param("otpCode").isNumeric().isLength({ min: 6, max: 6 }),
   ],
   async (req, res) => {
@@ -33,8 +34,20 @@ router.get(
           error: `You provided invalid value${totalInvalidFields > 1 ? "s" : ""} for ${totalInvalidFields > 1 ? "these fields" : "this field"} ${invalidFields.toString().replaceAll(",", ", ")}`,
         });
       }
-      const { email, otpCode } = req.params;
-      const user = await User.findOne({ accountEmail: email });
+      const { username, otpCode } = req.params;
+      if (
+        !validator.isEmail(username) ||
+        !validator.matches(username, /^[a-z0-9]{6,18}/)
+      ) {
+        return res.status(400).json({
+          resStatus: false,
+          message: "Invalid request",
+          error: "You provided invalid values",
+        });
+      }
+      const user = validator.isEmail(username)
+        ? await User.findOne({ accountEmail: username })
+        : await User.findOne({ username: username });
       if (!user || user.accountVerified) {
         return res.status(400).json({
           resStatus: false,
