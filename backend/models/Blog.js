@@ -12,6 +12,8 @@ const blogSchema = new Schema({
   blogBanner: {
     type: String,
     required: true,
+    default:
+      "https://i0.wp.com/www.esearchadvisors.com/blog/wp-content/uploads/2018/12/ESA-Blog-Banner.jpg",
   },
   body: {
     type: String,
