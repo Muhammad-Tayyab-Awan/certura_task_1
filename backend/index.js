@@ -12,6 +12,7 @@ import verifyRoute from "./routes/auth/verify.js";
 import uploadRoute from "./routes/upload.js";
 import loginRoute from "./routes/auth/login.js";
 import logoutRoute from "./routes/auth/logout.js";
+import deleteAccountRoute from "./routes/auth/delete.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -39,6 +40,7 @@ app.use("/api/v1/auth/register", registerRoute);
 app.use("/api/v1/auth/login", loginRoute);
 app.use("/api/v1/auth/logout", logoutRoute);
 app.use("/api/v1/auth/verify", verifyRoute);
+app.use("/api/v1/auth/delete", deleteAccountRoute);
 app.use("/api/v1/upload/", uploadRoute);
 
 app.all(/.*/, (req, res) => {
