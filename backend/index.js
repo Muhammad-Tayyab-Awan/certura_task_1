@@ -13,6 +13,7 @@ import uploadRoute from "./routes/upload.js";
 import loginRoute from "./routes/auth/login.js";
 import logoutRoute from "./routes/auth/logout.js";
 import deleteAccountRoute from "./routes/auth/delete.js";
+import blogRoute from "./routes/blog.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -41,7 +42,8 @@ app.use("/api/v1/auth/login", loginRoute);
 app.use("/api/v1/auth/logout", logoutRoute);
 app.use("/api/v1/auth/verify", verifyRoute);
 app.use("/api/v1/auth/delete", deleteAccountRoute);
-app.use("/api/v1/upload/", uploadRoute);
+app.use("/api/v1/upload", uploadRoute);
+app.use("/api/v1/blog", blogRoute);
 
 app.all(/.*/, (req, res) => {
   try {
