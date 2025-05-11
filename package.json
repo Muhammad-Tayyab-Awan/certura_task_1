@@ -1,18 +1,18 @@
 {
   "name": "certura_task_1",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
+  "description": "Certura task 1 simple blog site",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.56.3",
+    "react-hot-toast": "^2.5.2",
+    "react-router": "^7.6.0",
+    "react-top-loading-bar": "^3.0.2",
     "tailwindcss": "^4.1.6"
   },
   "devDependencies": {
@@ -25,5 +25,15 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "vite": "^6.3.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Muhammad-Tayyab-Awan/certura_task_1.git"
+  },
+  "author": "Muhammad-Tayyb-Awan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Muhammad-Tayyab-Awan/certura_task_1/issues"
+  },
+  "homepage": "https://github.com/Muhammad-Tayyab-Awan/certura_task_1#readme"
 }
