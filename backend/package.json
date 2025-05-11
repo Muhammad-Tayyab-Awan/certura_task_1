@@ -1,0 +1,33 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Certura task 1 simple blog site backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Muhammad-Tayyab-Awan/certura_task_1.git"
+  },
+  "author": "Muhammad-Tayyab-Awan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Muhammad-Tayyab-Awan/certura_task_1/issues"
+  },
+  "homepage": "https://github.com/Muhammad-Tayyab-Awan/certura_task_1#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.2"
+  }
+}
