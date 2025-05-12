@@ -5,6 +5,8 @@ import cors from "cors";
 import "dotenv/config";
 import express from "express";
 
+import dbConnect from "./utils/dbConnect.js";
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -28,7 +30,8 @@ app.all(/.*/, (req, res) => {
   }
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.clear();
+  await dbConnect();
   console.log(`Server is running http://localhost:${port}`);
 });
