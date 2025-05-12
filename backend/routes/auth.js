@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import User from "../models/User.js";
+import Blog from "../models/Blog.js";
 
 const router = Router();
 const jwtSecret = process.env.JWT_SECRET;
@@ -147,6 +148,32 @@ router.get("/logout", (req, res) => {
     res.status(200).json({
       resStatus: true,
       message: "Logged out successfully"
+    });
+  } catch (error) {
+    res.status(500).json({
+      resStatus: false,
+      error: "Server error found",
+      message: error.message
+    });
+  }
+});
+
+router.delete("/delete", async (req, res) => {
+  try {
+    const { userStatus } = req;
+    if (!userStatus.loggedIn) {
+      return res.status(400).json({
+        resStatus: false,
+        error: "Invalid request",
+        message: "You are not logged in"
+      });
+    }
+    await Blog.deleteMany({ author: userStatus.userId });
+    await User.findByIdAndDelete(userStatus.userId);
+    res.clearCookie("certurat1_auth_token");
+    res.status(200).json({
+      resStatus: true,
+      message: "Account deleted successfully"
     });
   } catch (error) {
     res.status(500).json({
