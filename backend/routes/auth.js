@@ -34,6 +34,22 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/login-status", (req, res) => {
+  try {
+    const { userStatus } = req;
+    res.status(200).json({
+      resStatus: true,
+      userStatus
+    });
+  } catch (error) {
+    res.status(500).json({
+      resStatus: false,
+      error: "Server error found",
+      message: error.message
+    });
+  }
+});
+
 router.post(
   "/signup",
   [
