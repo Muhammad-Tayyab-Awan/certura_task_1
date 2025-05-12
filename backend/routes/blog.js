@@ -171,4 +171,52 @@ router.get("/:blogId", [param("blogId").isMongoId()], async (req, res) => {
   }
 });
 
+router.delete("/:blogId", [param("blogId").isMongoId()], async (req, res) => {
+  try {
+    const { userStatus } = req;
+    if (!userStatus.loggedIn) {
+      return res.status(400).json({
+        resStatus: false,
+        error: "Invalid request",
+        message: "Please login first to delete a blog"
+      });
+    }
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      return res.status(400).json({
+        resStatus: false,
+        error: "Invalid request",
+        message: "Please provide correct values to delete a blog"
+      });
+    }
+    const { blogId } = req.params;
+    const blog = await Blog.findById(blogId);
+    if (!blog) {
+      return res.status(400).json({
+        resStatus: false,
+        error: "Invalid request",
+        message: "Blog with this id does not exist"
+      });
+    }
+    if (blog.author.toString() !== userStatus.userId) {
+      return res.status(400).json({
+        resStatus: false,
+        error: "Invalid request",
+        message: "You are not authorized to delete this blog"
+      });
+    }
+    await Blog.findByIdAndDelete(blogId);
+    res.status(200).json({
+      resStatus: true,
+      message: "Blog deleted successfully"
+    });
+  } catch (error) {
+    res.status(500).json({
+      resStatus: false,
+      error: "Server error found",
+      message: error.message
+    });
+  }
+});
+
 export default router;
