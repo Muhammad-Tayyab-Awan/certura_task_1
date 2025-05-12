@@ -12,8 +12,9 @@ import verifyLogin from "./middlewares/verifyLogin.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
+const origin = process.env.ORIGIN;
 
-app.use(cors({ credentials: true, origin: "*" }));
+app.use(cors({ credentials: true, origin: origin }));
 app.use(cookieParser());
 app.use(bodyParser.json());
 
