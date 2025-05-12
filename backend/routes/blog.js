@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { body, validationResult } from "express-validator";
+import { body, param, validationResult } from "express-validator";
 
 import Blog from "../models/Blog.js";
 
@@ -73,7 +73,11 @@ router.get("/", async (req, res) => {
         message: "Please login first to get all of your blogs"
       });
     }
-    const allBlogs = await Blog.find({ author: userStatus.userId });
+    const allBlogs = await Blog.find({ author: userStatus.userId }).populate(
+      "author",
+      ["-_id", "username"],
+      "user"
+    );
     res.status(200).json({
       resStatus: true,
       myBlogs: allBlogs
@@ -89,7 +93,11 @@ router.get("/", async (req, res) => {
 
 router.get("/all", async (req, res) => {
   try {
-    const allBlogs = await Blog.find();
+    const allBlogs = await Blog.find().populate(
+      "author",
+      ["-_id", "username"],
+      "user"
+    );
     res.status(200).json({
       resStatus: true,
       allBlogs
@@ -117,6 +125,42 @@ router.delete("/", async (req, res) => {
     res.status(200).json({
       resStatus: true,
       message: "All of your blogs deleted successfully"
+    });
+  } catch (error) {
+    res.status(500).json({
+      resStatus: false,
+      error: "Server error found",
+      message: error.message
+    });
+  }
+});
+
+router.get("/:blogId", [param("blogId").isMongoId()], async (req, res) => {
+  try {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      return res.status(400).json({
+        resStatus: false,
+        error: "Invalid request",
+        message: "Please provide correct values to get a blog"
+      });
+    }
+    const { blogId } = req.params;
+    const blog = await Blog.findById(blogId).populate(
+      "author",
+      ["-_id", "username"],
+      "user"
+    );
+    if (!blog) {
+      return res.status(400).json({
+        resStatus: false,
+        error: "Invalid request",
+        message: "Blog with this id does not exist"
+      });
+    }
+    res.status(200).json({
+      resStatus: true,
+      blog
     });
   } catch (error) {
     res.status(500).json({
