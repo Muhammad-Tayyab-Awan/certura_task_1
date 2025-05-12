@@ -12,21 +12,21 @@ export default async function verifyLogin(req, res, next) {
     const auth_token = cookies["certurat1_auth_token"];
     if (!auth_token) {
       req.userStatus.loggedIn = false;
-      next();
+      return next();
     }
     jwt.verify(auth_token, jwtSecret, async (err, decoded) => {
       if (err) {
         req.userStatus.loggedIn = false;
-        next();
+        return next();
       } else {
         const user = await User.findById(decoded.userId);
         if (!user) {
           req.userStatus.loggedIn = false;
-          next();
+          return next();
         } else {
           req.userStatus.loggedIn = true;
           req.userStatus.userId = user.id;
-          next();
+          return next();
         }
       }
     });
