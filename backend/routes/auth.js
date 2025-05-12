@@ -89,7 +89,7 @@ router.post(
         return res.status(400).json({
           resStatus: false,
           error: "Invalid request",
-          message: "Please logout first to login to another account"
+          message: "You are already logged in to an account"
         });
       }
       const result = validationResult(req);
@@ -132,5 +132,29 @@ router.post(
     }
   }
 );
+
+router.get("/logout", (req, res) => {
+  try {
+    const { userStatus } = req;
+    if (!userStatus.loggedIn) {
+      return res.status(400).json({
+        resStatus: false,
+        error: "Invalid request",
+        message: "Please login first to logout"
+      });
+    }
+    res.clearCookie("certurat1_auth_token");
+    res.status(200).json({
+      resStatus: true,
+      message: "Logged out successfully"
+    });
+  } catch (error) {
+    res.status(500).json({
+      resStatus: false,
+      error: "Server error found",
+      message: error.message
+    });
+  }
+});
 
 export default router;
