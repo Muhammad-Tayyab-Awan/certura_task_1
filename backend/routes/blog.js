@@ -87,4 +87,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/all", async (req, res) => {
+  try {
+    const allBlogs = await Blog.find();
+    res.status(200).json({
+      resStatus: true,
+      allBlogs
+    });
+  } catch (error) {
+    res.status(500).json({
+      resStatus: false,
+      error: "Server error found",
+      message: error.message
+    });
+  }
+});
+
 export default router;
