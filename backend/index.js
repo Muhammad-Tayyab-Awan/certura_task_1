@@ -6,13 +6,30 @@ import "dotenv/config";
 import express from "express";
 
 import dbConnect from "./utils/dbConnect.js";
+import authRoute from "./routes/auth.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
-app.use(cookieParser);
+app.use(cors({ credentials: true, origin: "*" }));
+app.use(cookieParser());
 app.use(bodyParser.json());
+
+app.get("/", (req, res) => {
+  try {
+    res
+      .status(200)
+      .json({ resStatus: true, message: "Welcome to certura task 1 api" });
+  } catch (error) {
+    res.status(500).json({
+      resStatus: false,
+      error: "Server error found",
+      message: error.message
+    });
+  }
+});
+
+app.use("/api/auth/", authRoute);
 
 app.all(/.*/, (req, res) => {
   try {
