@@ -7,6 +7,7 @@ import express from "express";
 
 import dbConnect from "./utils/dbConnect.js";
 import authRoute from "./routes/auth.js";
+import blogRoute from "./routes/blog.js";
 import verifyLogin from "./middlewares/verifyLogin.js";
 
 const app = express();
@@ -33,6 +34,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth/", authRoute);
+app.use("/api/blog/", blogRoute);
 
 app.all(/.*/, (req, res) => {
   try {
