@@ -1,0 +1,72 @@
+/* eslint-disable no-undef */
+import { Router } from "express";
+import { body, validationResult } from "express-validator";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+import User from "../models/User.js";
+
+const router = Router();
+const jwtSecret = process.env.JWT_SECRET;
+
+router.post(
+  "/signup",
+  [
+    body("username").matches(/^[a-z0-9]{6,18}/),
+    body("password")
+      .isStrongPassword({
+        minLowercase: 3,
+        minUppercase: 2,
+        minNumbers: 2,
+        minSymbols: 1,
+        minLength: 8
+      })
+      .isLength({ min: 8, max: 18 })
+  ],
+  async (req, res) => {
+    try {
+      const { userStatus } = req;
+      if (userStatus.loggedIn) {
+        return res.status(400).json({
+          resStatus: false,
+          error: "Invalid request",
+          message: "Please logout first to create another account"
+        });
+      }
+      const result = validationResult(req);
+      if (!result.isEmpty()) {
+        console.log(result);
+        return res.status(400).json({
+          resStatus: false,
+          error: "Invalid values",
+          message: "Please provide correct values for username and password"
+        });
+      }
+      const { username, password } = req.body;
+      const userCheck = await User.findOne({ username });
+      if (userCheck) {
+        return res.status(400).json({
+          resStatus: false,
+          error: "Invalid request",
+          message: "Account with that username already exist"
+        });
+      }
+      const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+      const newUser = await User.create({ username, password: hashedPassword });
+      const auth_token = jwt.sign({ username, userId: newUser.id }, jwtSecret);
+      res.cookie("certurat1_auth_token", auth_token, { maxAge: 1.296e9 });
+      res.status(200).json({
+        resStatus: true,
+        message: "Account created successfully"
+      });
+    } catch (error) {
+      res.status(500).json({
+        resStatus: false,
+        error: "Server error found",
+        message: error.message
+      });
+    }
+  }
+);
+
+export default router;
