@@ -63,4 +63,28 @@ router.post(
   }
 );
 
+router.get("/", async (req, res) => {
+  try {
+    const { userStatus } = req;
+    if (!userStatus.loggedIn) {
+      return res.status(400).json({
+        resStatus: false,
+        error: "Invalid request",
+        message: "Please login first to get all of your blogs"
+      });
+    }
+    const allBlogs = await Blog.find({ author: userStatus.userId });
+    res.status(200).json({
+      resStatus: true,
+      myBlogs: allBlogs
+    });
+  } catch (error) {
+    res.status(500).json({
+      resStatus: false,
+      error: "Server error found",
+      message: error.message
+    });
+  }
+});
+
 export default router;
