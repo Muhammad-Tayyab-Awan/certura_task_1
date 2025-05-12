@@ -35,7 +35,6 @@ router.post(
       }
       const result = validationResult(req);
       if (!result.isEmpty()) {
-        console.log(result);
         return res.status(400).json({
           resStatus: false,
           error: "Invalid values",
@@ -53,7 +52,7 @@ router.post(
       }
       const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
       const newUser = await User.create({ username, password: hashedPassword });
-      const auth_token = jwt.sign({ username, userId: newUser.id }, jwtSecret);
+      const auth_token = jwt.sign({ userId: newUser.id }, jwtSecret);
       res.cookie("certurat1_auth_token", auth_token, { maxAge: 1.296e9 });
       res.status(200).json({
         resStatus: true,
