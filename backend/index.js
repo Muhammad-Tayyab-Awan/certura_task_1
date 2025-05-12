@@ -7,6 +7,7 @@ import express from "express";
 
 import dbConnect from "./utils/dbConnect.js";
 import authRoute from "./routes/auth.js";
+import verifyLogin from "./middlewares/verifyLogin.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -14,6 +15,8 @@ const port = process.env.PORT || 3000;
 app.use(cors({ credentials: true, origin: "*" }));
 app.use(cookieParser());
 app.use(bodyParser.json());
+
+app.use(verifyLogin);
 
 app.get("/", (req, res) => {
   try {
