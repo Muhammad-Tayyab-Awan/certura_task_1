@@ -103,4 +103,28 @@ router.get("/all", async (req, res) => {
   }
 });
 
+router.delete("/", async (req, res) => {
+  try {
+    const { userStatus } = req;
+    if (!userStatus.loggedIn) {
+      return res.status(400).json({
+        resStatus: false,
+        error: "Invalid request",
+        message: "Please login first to delete all of your blogs"
+      });
+    }
+    await Blog.deleteMany({ author: userStatus.userId });
+    res.status(200).json({
+      resStatus: true,
+      message: "All of your blogs deleted successfully"
+    });
+  } catch (error) {
+    res.status(500).json({
+      resStatus: false,
+      error: "Server error found",
+      message: error.message
+    });
+  }
+});
+
 export default router;
