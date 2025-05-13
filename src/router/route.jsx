@@ -17,7 +17,7 @@ function Router() {
       <Route path="/login" element={<Login />} />
       <Route path="/my-blogs" element={<MyBlogs />} />
       <Route path="/create" element={<CreateBlog />} />
-      <Route path="/:blogId" element={<Blog />} />
+      <Route path="/blog/:blogId" element={<Blog />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
