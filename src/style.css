@@ -1,3 +1,11 @@
 ::-webkit-scrollbar {
   display: none;
 }
+.account-modal {
+  animation: translate_left ease-in-out 500ms 1 normal;
+}
+@keyframes translate_left {
+  from {
+    transform: translateX(0.5rem);
+  }
+}
