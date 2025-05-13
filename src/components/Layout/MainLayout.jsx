@@ -1,0 +1,14 @@
+import Footer from "./Footer";
+import Navbar from "./Navbar";
+
+function MainLayout({ children }) {
+  return (
+    <div className="relative min-h-[100svh] w-full bg-gray-200 text-gray-950">
+      <Navbar />
+      <div className="min-h-[calc(100svh-5.25rem)]">{children}</div>
+      <Footer />
+    </div>
+  );
+}
+
+export default MainLayout;
