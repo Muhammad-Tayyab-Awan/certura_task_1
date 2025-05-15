@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 
@@ -7,6 +8,16 @@ function MainLayout({ children }) {
       <Navbar />
       <div className="min-h-[calc(100svh-5.25rem)]">{children}</div>
       <Footer />
+      <Toaster
+        position="bottom-center"
+        toastOptions={{
+          style: {
+            backgroundColor: "grey",
+            maxWidth: "fit-content",
+            color: "whitesmoke",
+          },
+        }}
+      />
     </div>
   );
 }
