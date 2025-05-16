@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import { useLoginContext } from "../context/LoginContext";
 import { joiResolver } from "@hookform/resolvers/joi";
 import AuthenticationSchema from "../schema/AuthenticationSchema";
-import Joi from "joi";
 
 function Login() {
   const navigate = useNavigate();
@@ -31,7 +30,7 @@ function Login() {
       toast.error(response.message);
       return;
     }
-    setLoginState({ loggedIn: true });
+    setLoginState(response.userStatus);
     toast.success(response.message);
   }
 
