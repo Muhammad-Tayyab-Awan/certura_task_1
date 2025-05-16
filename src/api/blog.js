@@ -22,6 +22,27 @@ async function get_all_blogs() {
   }
 }
 
+async function get_my_blogs() {
+  try {
+    let response = await fetch(`${api_url}/api/blog/`, {
+      credentials: "include",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.clear();
+    response = await response.json();
+    return response;
+  } catch (err) {
+    return {
+      resStatus: false,
+      error: "Server not responding",
+      message: "Server not responding please try later",
+    };
+  }
+}
+
 async function get_blog_by_id(blogId) {
   try {
     let response = await fetch(`${api_url}/api/blog/${blogId}`, {
@@ -43,6 +64,6 @@ async function get_blog_by_id(blogId) {
   }
 }
 
-const blogAPI = { get_all_blogs, get_blog_by_id };
+const blogAPI = { get_all_blogs, get_blog_by_id, get_my_blogs };
 
 export default blogAPI;
