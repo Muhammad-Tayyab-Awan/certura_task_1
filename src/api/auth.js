@@ -45,6 +45,27 @@ async function login_status() {
   }
 }
 
-const authAPI = { login, login_status };
+async function logout() {
+  try {
+    let response = await fetch(`${api_url}/api/auth/logout`, {
+      credentials: "include",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.clear();
+    response = await response.json();
+    return response;
+  } catch (err) {
+    return {
+      resStatus: false,
+      error: "Server not responding",
+      message: "Server not responding please try later",
+    };
+  }
+}
+
+const authAPI = { login, login_status, logout };
 
 export default authAPI;
