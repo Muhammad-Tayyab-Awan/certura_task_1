@@ -43,6 +43,7 @@ function Home() {
             blogs.map((blog) => (
               <BlogCard
                 key={blog._id}
+                blogId={blog._id}
                 imageLink={blog.coverImageURL}
                 title={blog.title}
                 author={blog.author.username}

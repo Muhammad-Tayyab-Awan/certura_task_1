@@ -1,9 +1,9 @@
 import { Link } from "react-router";
 
-function BlogCard({ title, author, imageLink }) {
+function BlogCard({ blogId, title, author, imageLink }) {
   return (
     <Link
-      to={"/blog/" + title.trim().toLowerCase().replace(/ /g, "-")}
+      to={"/blog/" + blogId}
       className="relative flex h-56 flex-col justify-end rounded-xl bg-amber-500 bg-cover p-4 ring hover:*:first:flex"
       style={{
         backgroundImage: `url(${imageLink})`,
