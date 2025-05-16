@@ -4,11 +4,14 @@ import './index.css'
 import "./style.css";
 import App from './App.jsx'
 import { BrowserRouter } from "react-router";
+import { LoginContextProvider } from "./context/LoginContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <StrictMode>
-      <App />
-    </StrictMode>
+    <LoginContextProvider>
+      <StrictMode>
+        <App />
+      </StrictMode>
+    </LoginContextProvider>
   </BrowserRouter>,
 );
