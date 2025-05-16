@@ -138,7 +138,12 @@ router.post(
       res.cookie("certurat1_auth_token", auth_token, { maxAge: 1.296e9 });
       res.status(200).json({
         resStatus: true,
-        message: "Welcome back you logged in successfully"
+        message: "Welcome back you logged in successfully",
+        userStatus: {
+          loggedIn: true,
+          userId: userCheck.id,
+          username: userCheck.username,
+        },
       });
     } catch (error) {
       res.status(500).json({
