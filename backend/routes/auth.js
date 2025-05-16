@@ -10,30 +10,6 @@ import Blog from "../models/Blog.js";
 const router = Router();
 const jwtSecret = process.env.JWT_SECRET;
 
-router.get("/", async (req, res) => {
-  try {
-    const { userStatus } = req;
-    if (!userStatus.loggedIn) {
-      return res.status(400).json({
-        resStatus: false,
-        error: "Invalid request",
-        message: "Your are not logged in"
-      });
-    }
-    const user = await User.findById(userStatus.userId).select("-password");
-    res.status(200).json({
-      resStatus: true,
-      user
-    });
-  } catch (error) {
-    res.status(500).json({
-      resStatus: false,
-      error: "Server error found",
-      message: error.message
-    });
-  }
-});
-
 router.get("/login-status", (req, res) => {
   try {
     const { userStatus } = req;

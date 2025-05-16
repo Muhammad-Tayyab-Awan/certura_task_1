@@ -26,6 +26,7 @@ export default async function verifyLogin(req, res, next) {
         } else {
           req.userStatus.loggedIn = true;
           req.userStatus.userId = user.id;
+          req.userStatus.username = user.username;
           return next();
         }
       }
@@ -34,7 +35,7 @@ export default async function verifyLogin(req, res, next) {
     res.status(500).json({
       resStatus: false,
       error: "Server error found",
-      message: error.message
+      message: error.message,
     });
   }
 }
