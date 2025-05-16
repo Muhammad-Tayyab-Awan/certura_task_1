@@ -15,13 +15,13 @@ router.get("/login-status", (req, res) => {
     const { userStatus } = req;
     res.status(200).json({
       resStatus: true,
-      userStatus
+      userStatus,
     });
   } catch (error) {
     res.status(500).json({
       resStatus: false,
       error: "Server error found",
-      message: error.message
+      message: error.message,
     });
   }
 });
@@ -36,9 +36,9 @@ router.post(
         minUppercase: 2,
         minNumbers: 2,
         minSymbols: 1,
-        minLength: 8
+        minLength: 8,
       })
-      .isLength({ min: 8, max: 18 })
+      .isLength({ min: 8, max: 18 }),
   ],
   async (req, res) => {
     try {
@@ -47,7 +47,7 @@ router.post(
         return res.status(400).json({
           resStatus: false,
           error: "Invalid request",
-          message: "Please logout first to create another account"
+          message: "Please logout first to create another account",
         });
       }
       const result = validationResult(req);
@@ -55,7 +55,7 @@ router.post(
         return res.status(400).json({
           resStatus: false,
           error: "Invalid values",
-          message: "Please provide correct values for username and password"
+          message: "Please provide correct values for username and password",
         });
       }
       const { username, password } = req.body;
@@ -64,7 +64,7 @@ router.post(
         return res.status(400).json({
           resStatus: false,
           error: "Invalid request",
-          message: "Account with that username already exist"
+          message: "Account with that username already exist",
         });
       }
       const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
@@ -73,16 +73,21 @@ router.post(
       res.cookie("certurat1_auth_token", auth_token, { maxAge: 1.296e9 });
       res.status(200).json({
         resStatus: true,
-        message: "Account created successfully"
+        message: "Account created successfully",
+        userStatus: {
+          loggedIn: true,
+          userId: newUser.id,
+          username: newUser.username,
+        },
       });
     } catch (error) {
       res.status(500).json({
         resStatus: false,
         error: "Server error found",
-        message: error.message
+        message: error.message,
       });
     }
-  }
+  },
 );
 
 router.post(
@@ -95,9 +100,9 @@ router.post(
         minUppercase: 2,
         minNumbers: 2,
         minSymbols: 1,
-        minLength: 8
+        minLength: 8,
       })
-      .isLength({ min: 8, max: 18 })
+      .isLength({ min: 8, max: 18 }),
   ],
   async (req, res) => {
     try {
@@ -106,7 +111,7 @@ router.post(
         return res.status(400).json({
           resStatus: false,
           error: "Invalid request",
-          message: "You are already logged in to an account"
+          message: "You are already logged in to an account",
         });
       }
       const result = validationResult(req);
@@ -114,7 +119,7 @@ router.post(
         return res.status(400).json({
           resStatus: false,
           error: "Invalid values",
-          message: "Please provide correct values for username and password"
+          message: "Please provide correct values for username and password",
         });
       }
       const { username, password } = req.body;
@@ -123,7 +128,7 @@ router.post(
         return res.status(404).json({
           resStatus: false,
           error: "Invalid request",
-          message: "Account not found"
+          message: "Account not found",
         });
       }
       const passwordCheck = bcrypt.compareSync(password, userCheck.password);
@@ -131,7 +136,7 @@ router.post(
         return res.status(400).json({
           resStatus: false,
           error: "Invalid request",
-          message: "Please provide correct credentials"
+          message: "Please provide correct credentials",
         });
       }
       const auth_token = jwt.sign({ userId: userCheck.id }, jwtSecret);
@@ -149,10 +154,10 @@ router.post(
       res.status(500).json({
         resStatus: false,
         error: "Server error found",
-        message: error.message
+        message: error.message,
       });
     }
-  }
+  },
 );
 
 router.get("/logout", (req, res) => {
@@ -162,19 +167,19 @@ router.get("/logout", (req, res) => {
       return res.status(400).json({
         resStatus: false,
         error: "Invalid request",
-        message: "Please login first to logout"
+        message: "Please login first to logout",
       });
     }
     res.clearCookie("certurat1_auth_token");
     res.status(200).json({
       resStatus: true,
-      message: "Logged out successfully"
+      message: "Logged out successfully",
     });
   } catch (error) {
     res.status(500).json({
       resStatus: false,
       error: "Server error found",
-      message: error.message
+      message: error.message,
     });
   }
 });
@@ -186,7 +191,7 @@ router.delete("/delete", async (req, res) => {
       return res.status(400).json({
         resStatus: false,
         error: "Invalid request",
-        message: "You are not logged in"
+        message: "You are not logged in",
       });
     }
     await Blog.deleteMany({ author: userStatus.userId });
@@ -194,13 +199,13 @@ router.delete("/delete", async (req, res) => {
     res.clearCookie("certurat1_auth_token");
     res.status(200).json({
       resStatus: true,
-      message: "Account deleted successfully"
+      message: "Account deleted successfully",
     });
   } catch (error) {
     res.status(500).json({
       resStatus: false,
       error: "Server error found",
-      message: error.message
+      message: error.message,
     });
   }
 });
