@@ -57,7 +57,7 @@ function Login() {
         {...register("username")}
         className="w-full rounded-sm bg-gray-100 p-1 text-center text-gray-600 focus-visible:outline-hidden"
       />
-      <p className="text-end text-xs text-red-400">
+      <p className="text-justify text-xs text-red-400">
         {errors.username && errors.username.message}
       </p>
       <label htmlFor="password" className="cursor-pointer">
@@ -70,7 +70,7 @@ function Login() {
         {...register("password")}
         className="w-full rounded-sm bg-gray-100 p-1 text-center text-gray-600 focus-visible:outline-hidden"
       />
-      <p className="text-end text-xs text-red-400">
+      <p className="text-justify text-xs text-red-400">
         {errors.password && errors.password.message}
       </p>
       <button
