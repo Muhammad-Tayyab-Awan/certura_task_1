@@ -11,7 +11,7 @@ const BlogSchema = Joi.object({
     }),
   content: Joi.string()
     .min(300)
-    .max(3000)
+    .max(10000)
     .pattern(/^[A-Za-z0-9 .,!?'"()\-_:;@#&*/\\\[\]{}<>|+=~`%^$]/)
     .required()
     .messages({
@@ -20,7 +20,7 @@ const BlogSchema = Joi.object({
       "string.min":
         "Your message needs to be at least 300 characters. Don’t hold back!",
       "string.max":
-        "Whoa! Too much info. Please keep it under 3000 characters.",
+        "Whoa! Too much info. Please keep it under 10000 characters.",
       "string.pattern.base":
         "Only allowed characters please! Stick to letters, numbers, and standard punctuation.",
       "any.required": "This field is required. No skipping allowed.",

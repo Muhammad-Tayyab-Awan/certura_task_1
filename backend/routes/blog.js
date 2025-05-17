@@ -13,8 +13,8 @@ router.post(
       .isLength({ min: 15, max: 100 }),
     body("content")
       .matches(/^[A-Za-z0-9 .,!?'"()\-_:;@#&*/\\\[\]{}<>|+=~`%^$]/)
-      .isLength({ min: 300, max: 3000 }),
-    body("imageURL").isURL({})
+      .isLength({ min: 300, max: 10000 }),
+    body("imageURL").isURL({}),
   ],
   async (req, res) => {
     try {
@@ -23,7 +23,7 @@ router.post(
         return res.status(400).json({
           resStatus: false,
           error: "Invalid request",
-          message: "Please login first to create a new blog"
+          message: "Please login first to create a new blog",
         });
       }
       const result = validationResult(req);
@@ -31,7 +31,7 @@ router.post(
         return res.status(400).json({
           resStatus: false,
           error: "Invalid request",
-          message: "Please provide correct values to create a new blog"
+          message: "Please provide correct values to create a new blog",
         });
       }
       const { title, content, imageURL } = req.body;
@@ -40,27 +40,27 @@ router.post(
         return res.status(400).json({
           resStatus: false,
           error: "Invalid request",
-          message: "Blog with this title already exist"
+          message: "Blog with this title already exist",
         });
       }
       await Blog.create({
         title: title,
         content: content,
         coverImageURL: imageURL,
-        author: userStatus.userId
+        author: userStatus.userId,
       });
       res.status(200).json({
         resStatus: true,
-        message: "Blog created successfully"
+        message: "Blog created successfully",
       });
     } catch (error) {
       res.status(500).json({
         resStatus: false,
         error: "Server error found",
-        message: error.message
+        message: error.message,
       });
     }
-  }
+  },
 );
 
 router.get("/", async (req, res) => {

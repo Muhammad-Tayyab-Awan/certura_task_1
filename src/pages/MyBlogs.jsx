@@ -10,7 +10,7 @@ function MyBlogs() {
   const navigate = useNavigate();
 
   const { loggedIn } = useLoginContext();
-  console.log(loggedIn);
+
   const [blogs, setBlogs] = useState("loading");
 
   useEffect(() => {
@@ -27,8 +27,6 @@ function MyBlogs() {
       });
     }
   }, [loggedIn]);
-
-  useEffect(() => {}, []);
 
   return (
     <>
