@@ -43,7 +43,7 @@ function Login() {
   return (
     <form
       noValidate
-      className="mx-auto mt-5 h-auto w-1/3 space-y-2 rounded-sm bg-gray-600 px-4 py-6 text-gray-100 *:block"
+      className="mx-auto mt-5 h-auto w-[90%] space-y-2 rounded-sm bg-gray-600 px-4 py-6 text-gray-100 *:block sm:w-1/2 md:w-1/3"
       onSubmit={handleSubmit(handleLogin)}
     >
       <h1 className="text-center text-lg font-medium">Login Now</h1>
