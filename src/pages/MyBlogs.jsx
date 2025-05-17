@@ -30,11 +30,11 @@ function MyBlogs() {
 
   return (
     <>
-      <div className="h-[80svh] w-full overflow-y-auto bg-[url('/blog1.jpg')] bg-cover bg-center">
+      <div className="h-[60svh] w-full overflow-y-auto bg-[url('/blog1.jpg')] bg-cover bg-center sm:h-[80svh]">
         <h1 className="mx-auto mt-28 w-fit text-center text-4xl font-medium text-black text-shadow-amber-500 text-shadow-lg">
           Your Blogs
         </h1>
-        <p className="z-0 mx-auto mt-10 w-1/2 rounded-sm bg-gray-500/50 p-4 text-center text-xl text-gray-100 backdrop-blur-xs">
+        <p className="z-0 mx-auto mt-10 w-[90%] rounded-sm bg-gray-500/50 p-4 text-center text-xl text-gray-100 backdrop-blur-xs sm:w-1/2">
           Don't focus on having a great blog. Focus on producing a blog that's
           great for your readers
         </p>
@@ -65,7 +65,7 @@ function MyBlogs() {
             Delete All
           </button>
         )}
-        <div className="mx-auto mb-4 grid w-[90%] grid-cols-4 gap-6">
+        <div className="mx-auto mb-4 grid w-[90%] grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {blogs === "loading" ? (
             <h1 className="col-span-4 animate-pulse text-center text-xl font-medium text-gray-500">
               Loading...

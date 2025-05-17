@@ -45,7 +45,7 @@ function CreateBlog() {
     <div className="w-full overflow-y-auto">
       <form
         noValidate
-        className="mx-auto mt-20 h-auto w-1/2 space-y-2 rounded-md bg-gray-600 p-4 text-white *:block"
+        className="mx-auto mt-20 h-auto w-[90%] space-y-2 rounded-md bg-gray-600 p-4 text-white *:block sm:w-1/2 md:w-1/3"
         onSubmit={handleSubmit(handleBlogCreate)}
       >
         <h1 className="text-center text-lg">Publish new blog</h1>

@@ -17,11 +17,11 @@ function Home() {
   }, []);
   return (
     <>
-      <div className="h-[80svh] w-full overflow-y-auto bg-[url('/blog.jpg')] bg-cover">
+      <div className="h-[60svh] w-full overflow-y-auto bg-[url('/blog.jpg')] bg-cover sm:h-[60svh]">
         <h1 className="mx-auto mt-28 w-fit text-center text-4xl font-medium text-white text-shadow-amber-500 text-shadow-lg">
           Blogs
         </h1>
-        <p className="z-0 mx-auto mt-10 w-1/2 rounded-sm bg-gray-500/50 p-4 text-justify text-xl text-gray-100 backdrop-blur-xs">
+        <p className="z-0 mx-auto mt-10 w-[90%] rounded-sm bg-gray-500/50 p-4 text-justify text-xl text-gray-100 backdrop-blur-xs sm:w-1/2">
           Discover others research on miscellaneous topics, and publish your own
           blogs to elaborate your ideas and opinions
         </p>
@@ -34,7 +34,7 @@ function Home() {
       </div>
       <div>
         <h2 className="my-5 text-center text-lg">Read all Blogs</h2>
-        <div className="mx-auto mb-4 grid w-[90%] grid-cols-4 gap-6">
+        <div className="mx-auto mb-4 grid w-[90%] grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {blogs === "loading" ? (
             <h1 className="col-span-4 animate-pulse text-center text-xl font-medium text-gray-500">
               Loading...
