@@ -64,6 +64,28 @@ async function get_blog_by_id(blogId) {
   }
 }
 
-const blogAPI = { get_all_blogs, get_blog_by_id, get_my_blogs };
+async function create_blog(blogData) {
+  try {
+    let response = await fetch(`${api_url}/api/blog/create`, {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(blogData),
+    });
+    console.clear();
+    response = await response.json();
+    return response;
+  } catch (err) {
+    return {
+      resStatus: false,
+      error: "Server not responding",
+      message: "Server not responding please try later",
+    };
+  }
+}
+
+const blogAPI = { get_all_blogs, get_blog_by_id, get_my_blogs, create_blog };
 
 export default blogAPI;
