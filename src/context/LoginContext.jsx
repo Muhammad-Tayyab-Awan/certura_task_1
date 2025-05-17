@@ -3,14 +3,14 @@ import { createContext, useContext, useEffect, useState } from "react";
 import authAPI from "../api/auth";
 
 const LoginContext = createContext({
-  loggedIn: false,
+  loggedIn: null,
   userId: null,
   username: null,
 });
 
 export function LoginContextProvider({ children }) {
   const [loginState, setLoginState] = useState({
-    loggedIn: false,
+    loggedIn: null,
     userId: null,
     username: null,
   });
