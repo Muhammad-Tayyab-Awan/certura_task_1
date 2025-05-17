@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import blogAPI from "../api/blog";
 import toast from "react-hot-toast";
 import { useLoginContext } from "../context/LoginContext";
@@ -41,22 +41,30 @@ function Blog() {
           <p className="mx-auto mt-4 flex w-[75%] flex-col items-start justify-center gap-1 text-xs sm:flex-row sm:justify-between sm:gap-0 sm:text-sm">
             <span>Published By : {blog.author.username}</span>
             {loggedIn && username === blog.author.username ? (
-              <button
-                className="cursor-pointer rounded-md bg-red-500 px-3 py-1 text-white focus-visible:outline-hidden disabled:animate-pulse disabled:cursor-progress"
-                onClick={async (e) => {
-                  e.target.disabled = true;
-                  const response = await blogAPI.delete_blog_by_id(blogId);
-                  e.target.disabled = false;
-                  if (!response.resStatus) {
-                    toast.error(response.message);
-                    return;
-                  }
-                  toast.success(response.message);
-                  navigate("/my-blogs");
-                }}
-              >
-                Delete
-              </button>
+              <>
+                <Link
+                  to={`/update/${blogId}`}
+                  className="rounded-md bg-blue-500 px-3 py-1 text-white"
+                >
+                  Update
+                </Link>
+                <button
+                  className="cursor-pointer rounded-md bg-red-500 px-3 py-1 text-white focus-visible:outline-hidden disabled:animate-pulse disabled:cursor-progress"
+                  onClick={async (e) => {
+                    e.target.disabled = true;
+                    const response = await blogAPI.delete_blog_by_id(blogId);
+                    e.target.disabled = false;
+                    if (!response.resStatus) {
+                      toast.error(response.message);
+                      return;
+                    }
+                    toast.success(response.message);
+                    navigate("/my-blogs");
+                  }}
+                >
+                  Delete
+                </button>
+              </>
             ) : (
               <></>
             )}
