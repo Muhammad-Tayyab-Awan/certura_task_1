@@ -8,6 +8,7 @@ import MyBlogs from "../pages/MyBlogs";
 import Blog from "../pages/Blog";
 import CreateBlog from "../pages/CreateBlog";
 import NotFound from "../pages/NotFound";
+import UpdateBlog from "../pages/UpdateBlog";
 
 function Router() {
   return (
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/my-blogs" element={<MyBlogs />} />
       <Route path="/create" element={<CreateBlog />} />
       <Route path="/blog/:blogId" element={<Blog />} />
+      <Route path="/update/:blogId" element={<UpdateBlog />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
