@@ -47,6 +47,22 @@ function MyBlogs() {
       </div>
       <div>
         <h2 className="my-5 text-center text-lg">Read all your blogs</h2>
+        <button
+          className="mx-auto mb-8 block cursor-pointer rounded-full bg-red-600 p-1.5 text-xs text-white focus-visible:outline-hidden"
+          onClick={async (e) => {
+            e.target.disabled = true;
+            const response = await blogAPI.delete_all();
+            e.target.disabled = false;
+            if (!response.resStatus) {
+              toast.error(response.message);
+              return;
+            }
+            toast.success("All blogs deleted successfully");
+            setBlogs(null);
+          }}
+        >
+          Delete All
+        </button>
         <div className="mx-auto mb-4 grid w-[90%] grid-cols-4 gap-6">
           {blogs === "loading" ? (
             <h1 className="col-span-4 animate-pulse text-center text-xl font-medium text-gray-500">

@@ -86,6 +86,33 @@ async function create_blog(blogData) {
   }
 }
 
-const blogAPI = { get_all_blogs, get_blog_by_id, get_my_blogs, create_blog };
+async function delete_all() {
+  try {
+    let response = await fetch(`${api_url}/api/blog`, {
+      credentials: "include",
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.clear();
+    response = await response.json();
+    return response;
+  } catch (err) {
+    return {
+      resStatus: false,
+      error: "Server not responding",
+      message: "Server not responding please try later",
+    };
+  }
+}
+
+const blogAPI = {
+  get_all_blogs,
+  get_blog_by_id,
+  get_my_blogs,
+  create_blog,
+  delete_all,
+};
 
 export default blogAPI;
