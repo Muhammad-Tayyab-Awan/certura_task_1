@@ -107,6 +107,28 @@ async function create_blog(blogData) {
   }
 }
 
+async function update_blog(blogId, blogData) {
+  try {
+    let response = await fetch(`${api_url}/api/blog/${blogId}`, {
+      credentials: "include",
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(blogData),
+    });
+    console.clear();
+    response = await response.json();
+    return response;
+  } catch (err) {
+    return {
+      resStatus: false,
+      error: "Server not responding",
+      message: "Server not responding please try later",
+    };
+  }
+}
+
 async function delete_all() {
   try {
     let response = await fetch(`${api_url}/api/blog`, {
@@ -135,6 +157,7 @@ const blogAPI = {
   create_blog,
   delete_all,
   delete_blog_by_id,
+  update_blog,
 };
 
 export default blogAPI;
