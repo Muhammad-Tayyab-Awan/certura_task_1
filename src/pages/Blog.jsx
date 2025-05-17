@@ -22,7 +22,7 @@ function Blog() {
     });
   }, [blogId]);
   return (
-    <div className="overflow-y-auto px-4">
+    <div className="overflow-y-auto px-1 sm:px-4">
       {blog === "loading" && (
         <h1 className="col-span-4 mt-20 animate-pulse text-center text-xl font-medium text-gray-500">
           Loading...
@@ -38,7 +38,7 @@ function Blog() {
             alt={blog.title.trim().toLowerCase().replaceAll(" ", "-")}
             className="mt-4 w-full rounded-md"
           />
-          <p className="mx-auto mt-4 flex w-[75%] justify-between text-sm">
+          <p className="mx-auto mt-4 flex w-[75%] flex-col items-start justify-center gap-1 text-xs sm:flex-row sm:justify-between sm:gap-0 sm:text-sm">
             <span>Published By : {blog.author.username}</span>
             {loggedIn && username === blog.author.username ? (
               <button
@@ -64,7 +64,7 @@ function Blog() {
               Published On : {new Date(blog.createdAt).toLocaleString()}
             </span>
           </p>
-          <p className="mt-4 mb-6 px-5 text-justify leading-loose text-gray-500">
+          <p className="mt-4 mb-6 px-1 text-justify leading-loose text-gray-500 sm:px-5">
             {blog.content}
           </p>
         </>
